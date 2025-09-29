@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     const [users, setUsers] = useState([]);
-
-    const { id } = useParams();
 
     useEffect(() => {
         loadUsers();
@@ -13,7 +11,6 @@ export default function Home() {
 
     const loadUsers = async () => {
         const result = await axios.get("http://localhost:8080/fullstack/users");
-        console.log(result.data);
         setUsers(result.data);
     };
 
@@ -37,7 +34,7 @@ export default function Home() {
                     </thead>
                     <tbody>
                         {users.map((user, index) => (
-                            <tr key={index}>
+                            <tr key={user.id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.userName}</td>
